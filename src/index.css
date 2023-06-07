@@ -14,9 +14,8 @@
 }
 body {
   font-size: 1rem;
-  color: #213547;
   border: none;
-  @apply bg-gray-300;
+  @apply bg-gray-300 text-darkBlueSteel;
 }
 hr {
   @apply border border-gray-300;
