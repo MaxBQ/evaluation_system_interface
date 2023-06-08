@@ -1,8 +1,9 @@
 import { Action } from "./actions";
 
 export type UserList = {
-  id: string;
-  name: string;
+  id: number;
+  firstName: string;
+  lastName: string;
 };
 export type UsersListRating = {
   rating: number;
@@ -19,11 +20,10 @@ export const appStateReducer = (
 ): AppState | void => {
   switch (action.type) {
     case "ADD_LIST_USERS": {
-      draft;
+      draft.usersList.push(...action.payload);
       break;
     }
     case "ADD_LIST_USER_RATING": {
-      draft;
       break;
     }
     default: {

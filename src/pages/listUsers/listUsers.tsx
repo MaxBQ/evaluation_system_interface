@@ -1,18 +1,15 @@
 import { useState } from "react";
 import { Button } from "./components/ui/Button";
 import { ContainerUsers } from "./components/ui/ContainerUsers";
-import { UsersListData, useFetch } from "./hooks";
+import { useFetch } from "../../hooks";
 import { List } from "./components/List";
+import { useAppState } from "../../state/AppStateContext";
 
 export const ListUsers = () => {
-  const [usersListNoRating, setUsersListNoRating] = useState<UsersListData[]>(
-    [] as UsersListData[]
-  );
-  const [usersListRating, setUsersListRating] = useState<UsersListData[]>(
-    [] as UsersListData[]
-  );
+  const { dispatch, usersList, usersListRating } = useAppState();
+
   const [page, setPage] = useState<number>(1);
-  useFetch({ page, usersListNoRating, setUsersListNoRating });
+  useFetch({ page });
 
   return (
     <div className="grid w-full gap-2 items-center  content-center">
@@ -28,28 +25,29 @@ export const ListUsers = () => {
         <Button onClick={() => setPage(page + 1)}>page</Button>
       </div>
       <div className="flex flex-col md:flex-row gap-14 items-center justify-center w-full">
-        {usersListNoRating.length ? (
+        {usersList?.length ? (
           <ContainerUsers>
             <ul className="grid w-full gap-2 items-center content-center">
-              {usersListNoRating.map((user) => (
+              {usersList.map((user) => (
                 <List
                   key={user.id}
-                  firstName={user.first_name}
-                  lastName={user.last_name}
+                  firstName={user.firstName}
+                  lastName={user.lastName}
                 />
               ))}
             </ul>
           </ContainerUsers>
         ) : null}
 
-        {usersListRating.length ? (
+        {usersListRating?.length ? (
           <ContainerUsers>
             <ul className="grid w-full gap-2 items-center content-center">
-              {usersListNoRating.map((user) => (
+              {usersListRating.map((user) => (
                 <List
                   key={user.id}
-                  firstName={user.first_name}
-                  lastName={user.last_name}
+                  firstName={user.firstName}
+                  lastName={user.lastName}
+                  rating={user.rating}
                 />
               ))}
             </ul>

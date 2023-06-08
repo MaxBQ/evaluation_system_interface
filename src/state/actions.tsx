@@ -1,14 +1,16 @@
+import { UserList, UsersListRating } from "./appStateReducer";
+
 export type Action =
   | {
       type: "ADD_LIST_USERS";
-      payload: { id: number; firstName: string; lastName: string };
+      payload: UserList[];
     }
   | {
       type: "ADD_LIST_USER_RATING";
-      payload: {
-        id: number;
-        firstName: string;
-        lastName: string;
-        rating: number;
-      };
+      payload: UsersListRating;
     };
+
+export const addUsersList = (usersList: UserList[]): Action => ({
+  type: "ADD_LIST_USERS",
+  payload: usersList,
+});

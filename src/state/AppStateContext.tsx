@@ -1,7 +1,7 @@
 import { Dispatch, FC, ReactNode, createContext, useContext } from "react";
 import { Action } from "./actions";
-import { useImmerReducer } from "use-immer";
 import { AppState, appStateReducer } from "./appStateReducer";
+import { useImmerReducer } from "use-immer";
 
 type AppStateContextProps = {
   //   getBayUsersListRatingId(id: number): [];
@@ -20,7 +20,13 @@ export const useAppState = () => {
 };
 
 export const AppStateProvider: FC<AppChildren> = ({ children }) => {
-  const [state, dispatch] = useImmerReducer(appStateReducer, {} as AppState);
+  const LocalStorageList = window.localStorage.getItem("usersList");
+  const [state, dispatch] = useImmerReducer(appStateReducer, {
+    usersList: [
+      ...JSON.parse(LocalStorageList !== null ? LocalStorageList : "[]"),
+    ],
+    usersListRating: [],
+  } as AppState);
   const { usersList, usersListRating } = state;
 
   return (
