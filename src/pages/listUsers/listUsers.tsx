@@ -6,7 +6,7 @@ import { List } from "./components/List";
 import { useAppState } from "../../state/AppStateContext";
 
 export const ListUsers = () => {
-  const { dispatch, usersList, usersListRating } = useAppState();
+  const { usersList, usersListRating } = useAppState();
 
   const [page, setPage] = useState<number>(1);
   useFetch({ page });
@@ -24,33 +24,32 @@ export const ListUsers = () => {
         </Button>
         <Button onClick={() => setPage(page + 1)}>page</Button>
       </div>
+
       <div className="flex flex-col md:flex-row gap-14 items-center justify-center w-full">
         {usersList?.length ? (
           <ContainerUsers>
-            <ul className="grid w-full gap-2 items-center content-center">
-              {usersList.map((user) => (
-                <List
-                  key={user.id}
-                  firstName={user.firstName}
-                  lastName={user.lastName}
-                />
-              ))}
-            </ul>
+            {usersList.map((user) => (
+              <List
+                key={user.id}
+                userId={user.id}
+                firstName={user.firstName}
+                lastName={user.lastName}
+              />
+            ))}
           </ContainerUsers>
         ) : null}
 
         {usersListRating?.length ? (
           <ContainerUsers>
-            <ul className="grid w-full gap-2 items-center content-center">
-              {usersListRating.map((user) => (
-                <List
-                  key={user.id}
-                  firstName={user.firstName}
-                  lastName={user.lastName}
-                  rating={user.rating}
-                />
-              ))}
-            </ul>
+            {usersListRating.map((user) => (
+              <List
+                key={user.id}
+                userId={user.id}
+                firstName={user.firstName}
+                lastName={user.lastName}
+                rating={user.rating}
+              />
+            ))}
           </ContainerUsers>
         ) : null}
       </div>
