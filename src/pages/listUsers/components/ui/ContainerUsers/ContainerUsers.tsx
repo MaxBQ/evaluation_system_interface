@@ -13,7 +13,7 @@ export const ContainerUsers: FC<ContainerUsersProps> = ({
   return (
     <div
       {...rest}
-      className={`rounded-xl p-2 w-auto border shadow-md border-gray-300 ${className}`}
+      className={`rounded-xl w-auto sm:w-72 md:w-80 p-2 lg:w-96 border shadow-md border-gray-300 ${className}`}
     >
       {children}
     </div>
