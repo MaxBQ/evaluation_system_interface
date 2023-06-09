@@ -12,6 +12,7 @@ export type UsersListRating = {
 export type AppState = {
   usersList: UserList[];
   usersListRating: UsersListRating[];
+  modal: { text: string; userId?: number };
 };
 
 export const appStateReducer = (
@@ -88,6 +89,18 @@ export const appStateReducer = (
         ];
         draft.usersList.push(user);
       }
+      break;
+    }
+    case "USER_BAN": {
+      draft.modal = action.payload;
+      break;
+    }
+    case "USER_SUCCESS": {
+      draft.modal = action.payload;
+      break;
+    }
+    case "MODAL_CLOSE": {
+      draft.modal = { text: action.payload };
       break;
     }
     default: {

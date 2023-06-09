@@ -1,30 +1,27 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-
-export default function MyModal() {
-  let [isOpen, setIsOpen] = useState(true);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
+import { FC, Fragment, useState } from "react";
+import { Button } from "../ui/Button";
+import { useAppState } from "../../../../state/AppStateContext";
+import { clearUser } from "../../../../state/actions";
+export type ModalProps = {
+  title: string;
+  closeModal: () => void;
+  show: boolean;
+};
+export const MyModal: FC<ModalProps> = ({ title, closeModal, show }) => {
+  const { dispatch, modal } = useAppState();
+  const onClickYes = () => {
+    console.log(`${title} Yes`);
+    dispatch(clearUser(modal.userId!));
+    closeModal();
+  };
+  const onClickNo = () => {
+    console.log(`${title} No`);
+    closeModal();
+  };
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center">
-        <button
-          type="button"
-          onClick={openModal}
-          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-        >
-          Open dialog
-        </button>
-      </div>
-
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={show} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -54,23 +51,22 @@ export default function MyModal() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Payment successful
+                    {title}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
+                      If you click yes, the user will return to the left list.
+                      If you click no, the user will remain in the right list.
                     </p>
                   </div>
 
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
+                  <div className="mt-4 flex items-center gap-4 justify-between">
+                    <Button className="w-full" onClick={onClickNo}>
+                      No
+                    </Button>
+                    <Button className="w-full" onClick={onClickYes}>
+                      Yes
+                    </Button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -80,4 +76,4 @@ export default function MyModal() {
       </Transition>
     </>
   );
-}
+};

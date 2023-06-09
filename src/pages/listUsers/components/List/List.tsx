@@ -41,7 +41,7 @@ export const List: FC<ListProps> = ({
       <p className="w-1/6 text-center">{rating}</p>
       <div className="w-2/6 flex items-center justify-end gap-1">
         {rating === 0 ? <ButtonClear onClick={clearButtonClear} /> : null}
-        <ButtonRating className="" id={userId} />
+        <ButtonRating rating={rating} id={userId} />
       </div>
     </motion.li>
   );

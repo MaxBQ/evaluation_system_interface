@@ -30,10 +30,12 @@ export const AppStateProvider: FC<AppChildren> = ({ children }) => {
       ),
     ],
   } as AppState);
-  const { usersList, usersListRating } = state;
+  const { usersList, usersListRating, modal } = state;
 
   return (
-    <AppStateContext.Provider value={{ usersList, usersListRating, dispatch }}>
+    <AppStateContext.Provider
+      value={{ usersList, usersListRating, dispatch, modal }}
+    >
       {children}
     </AppStateContext.Provider>
   );

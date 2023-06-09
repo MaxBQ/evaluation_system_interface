@@ -20,12 +20,10 @@ export const useFetch = ({ page }: UseFetchProps) => {
     if (usersList.length) {
       window.localStorage.setItem("usersList", JSON.stringify(usersList));
     }
-    if (usersListRating.length) {
-      window.localStorage.setItem(
-        "usersListRating",
-        JSON.stringify(usersListRating)
-      );
-    }
+    window.localStorage.setItem(
+      "usersListRating",
+      JSON.stringify(usersListRating)
+    );
   }, [usersList.length, usersListRating]);
   useEffect(() => {
     if (usersListLocal === null || page > 1) {

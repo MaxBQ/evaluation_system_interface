@@ -17,7 +17,13 @@ export type Action =
       type: "RATING_SUBTRACT";
       payload: { userId: number };
     }
-  | { type: "CLEAR_USER"; payload: { userId: number } };
+  | { type: "CLEAR_USER"; payload: { userId: number } }
+  | {
+      type: "USER_BAN";
+      payload: { text: string; userId: number };
+    }
+  | { type: "USER_SUCCESS"; payload: { text: string; userId: number } }
+  | { type: "MODAL_CLOSE"; payload: string };
 
 export const addUsersList = (usersList: UserList[]): Action => ({
   type: "ADD_LIST_USERS",
@@ -35,4 +41,16 @@ export const subtractRating = (userId: number): Action => ({
 export const clearUser = (userId: number): Action => ({
   type: "CLEAR_USER",
   payload: { userId },
+});
+export const userBan = (userId: number): Action => ({
+  type: "USER_BAN",
+  payload: { text: "modalBan", userId },
+});
+export const userSuccess = (userId: number): Action => ({
+  type: "USER_SUCCESS",
+  payload: { text: "modalSuccess", userId },
+});
+export const modalClose = (): Action => ({
+  type: "MODAL_CLOSE",
+  payload: "",
 });
