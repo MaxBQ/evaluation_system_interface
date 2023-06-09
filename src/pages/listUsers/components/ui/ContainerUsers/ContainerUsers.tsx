@@ -29,7 +29,7 @@ export const ContainerUsers: FC<ContainerUsersProps> = ({
       initial="hidden"
       animate="visible"
       {...rest}
-      className={`rounded-xl w-auto sm:w-72 md:w-80 p-2 lg:w-96 border shadow-md border-gray-300 grid  gap-2 items-center content-center ${className}`}
+      className={`rounded-xl  w-64 sm:w-96 md:w-80 sm:p-2 lg:w-96 border shadow-md border-gray-300 grid  gap-2 items-center content-center ${className}`}
     >
       {children}
     </motion.ul>

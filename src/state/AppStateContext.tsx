@@ -20,12 +20,15 @@ export const useAppState = () => {
 };
 
 export const AppStateProvider: FC<AppChildren> = ({ children }) => {
-  const LocalStorageList = window.localStorage.getItem("usersList");
+  const usersListLocal = window.localStorage.getItem("usersList");
+  const usersRatingListLocal = window.localStorage.getItem("usersListRating");
   const [state, dispatch] = useImmerReducer(appStateReducer, {
-    usersList: [
-      ...JSON.parse(LocalStorageList !== null ? LocalStorageList : "[]"),
+    usersList: [...JSON.parse(usersListLocal !== null ? usersListLocal : "[]")],
+    usersListRating: [
+      ...JSON.parse(
+        usersRatingListLocal !== null ? usersRatingListLocal : "[]"
+      ),
     ],
-    usersListRating: [],
   } as AppState);
   const { usersList, usersListRating } = state;
 

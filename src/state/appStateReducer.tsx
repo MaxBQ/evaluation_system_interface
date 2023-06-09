@@ -75,6 +75,21 @@ export const appStateReducer = (
       }
       break;
     }
+    case "CLEAR_USER": {
+      const { userId } = action.payload;
+      const getBayIndexRating = draft.usersListRating.findIndex(
+        (user) => user.id === userId
+      );
+      if (getBayIndexRating !== -1) {
+        const user = draft.usersListRating[getBayIndexRating];
+        draft.usersListRating = [
+          ...draft.usersListRating.slice(0, getBayIndexRating),
+          ...draft.usersListRating.slice(getBayIndexRating + 1),
+        ];
+        draft.usersList.push(user);
+      }
+      break;
+    }
     default: {
       break;
     }

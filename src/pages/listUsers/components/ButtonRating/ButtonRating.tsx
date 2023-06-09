@@ -12,9 +12,11 @@ export type ButtonRatingProps = {
 export const ButtonRating: FC<ButtonRatingProps> = ({ id, className }) => {
   const { dispatch } = useAppState();
   const onClickIntercalate = () => {
+    console.log("click Intercalate");
     dispatch(intercalateRating(id));
   };
   const onClickSubtract = () => {
+    console.log("click Subtract");
     dispatch(subtractRating(id));
   };
   return (

@@ -1,6 +1,9 @@
 import { FC, HTMLAttributes } from "react";
 import { ButtonRating } from "../ButtonRating";
 import { motion } from "framer-motion";
+import { ButtonClear } from "../ButtonClear";
+import { useAppState } from "../../../../state/AppStateContext";
+import { clearUser } from "../../../../state/actions";
 const item = {
   hidden: { y: 20, opacity: 0 },
   visible: {
@@ -22,6 +25,11 @@ export const List: FC<ListProps> = ({
   lastName,
   rating,
 }) => {
+  const { dispatch } = useAppState();
+  const clearButtonClear = () => {
+    console.log("click clear");
+    dispatch(clearUser(userId));
+  };
   return (
     <motion.li
       variants={item}
@@ -31,7 +39,10 @@ export const List: FC<ListProps> = ({
         {firstName}&nbsp;{lastName}
       </p>
       <p className="w-1/6 text-center">{rating}</p>
-      <ButtonRating className="w-2/6" id={userId} />
+      <div className="w-2/6 flex items-center justify-end gap-1">
+        {rating === 0 ? <ButtonClear onClick={clearButtonClear} /> : null}
+        <ButtonRating className="" id={userId} />
+      </div>
     </motion.li>
   );
 };

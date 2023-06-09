@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import { useAppState } from "../state/AppStateContext";
 import { addUsersList } from "../state/actions";
 
-// export interface UsersListData {
-//   id: number;
-//   first_name: string;
-//   last_name: string;
-// }
+export interface UsersListData {
+  id: number;
+  first_name: string;
+  last_name: string;
+}
 export type UseFetchProps = {
   page: number;
 };
 
 export const useFetch = ({ page }: UseFetchProps) => {
-  const { dispatch, usersList } = useAppState();
+  const { dispatch, usersList, usersListRating } = useAppState();
   const controller = new AbortController();
   const signal = controller.signal;
   const usersListLocal = window.localStorage.getItem("usersList");
@@ -20,7 +20,13 @@ export const useFetch = ({ page }: UseFetchProps) => {
     if (usersList.length) {
       window.localStorage.setItem("usersList", JSON.stringify(usersList));
     }
-  }, [usersList.length]);
+    if (usersListRating.length) {
+      window.localStorage.setItem(
+        "usersListRating",
+        JSON.stringify(usersListRating)
+      );
+    }
+  }, [usersList.length, usersListRating]);
   useEffect(() => {
     if (usersListLocal === null || page > 1) {
       const getData = async () => {
@@ -28,14 +34,11 @@ export const useFetch = ({ page }: UseFetchProps) => {
           `https://random-data-api.com/api/users/random_user?size=3&page=${page}`,
           { signal }
         ).then((response) => response.json());
-        const dataRes = response.map(
-          (res: any) =>
-            (res = {
-              id: res.id,
-              firstName: res.first_name,
-              lastName: res.last_name,
-            })
-        );
+        const dataRes = response.map((res: UsersListData) => ({
+          id: res.id,
+          firstName: res.first_name,
+          lastName: res.last_name,
+        }));
         dispatch(addUsersList(dataRes));
       };
       getData();

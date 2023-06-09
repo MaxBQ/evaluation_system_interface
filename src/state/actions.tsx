@@ -16,7 +16,8 @@ export type Action =
   | {
       type: "RATING_SUBTRACT";
       payload: { userId: number };
-    };
+    }
+  | { type: "CLEAR_USER"; payload: { userId: number } };
 
 export const addUsersList = (usersList: UserList[]): Action => ({
   type: "ADD_LIST_USERS",
@@ -29,5 +30,9 @@ export const intercalateRating = (userId: number): Action => ({
 });
 export const subtractRating = (userId: number): Action => ({
   type: "RATING_SUBTRACT",
+  payload: { userId },
+});
+export const clearUser = (userId: number): Action => ({
+  type: "CLEAR_USER",
   payload: { userId },
 });
