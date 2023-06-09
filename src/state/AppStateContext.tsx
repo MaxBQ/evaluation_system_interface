@@ -29,6 +29,7 @@ export const AppStateProvider: FC<AppChildren> = ({ children }) => {
         usersRatingListLocal !== null ? usersRatingListLocal : "[]"
       ),
     ],
+    modal: { text: "" },
   } as AppState);
   const { usersList, usersListRating, modal } = state;
 
